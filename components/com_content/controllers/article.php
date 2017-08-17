@@ -309,18 +309,18 @@ class ContentControllerArticle extends JControllerForm
 		// Check for redirection after submission when creating a new article only
 		if ($menuitem > 0 && $articleId == 0)
 		{
+			$item = $app->getMenu()->getItem($menuitem);
+			
 			$lang = '';
-
 			if (JLanguageMultilang::isEnabled())
 			{
-				$item = $app->getMenu()->getItem($menuitem);
 				$lang =  !is_null($item) && $item->language != '*' ? '&lang=' . $item->language : '';
 			}
 
 			// If ok, redirect to the return page.
 			if ($result)
 			{
-				$this->setRedirect(JRoute::_('index.php?Itemid=' . $menuitem . $lang, false));
+				$this->setRedirect(JRoute::_($item->link . $lang . '&Itemid=' . $menuitemId, false));
 			}
 		}
 		else

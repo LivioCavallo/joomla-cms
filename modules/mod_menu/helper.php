@@ -130,6 +130,9 @@ class ModMenuHelper
 					{
 						$item->flink = JRoute::_($item->flink);
 					}
+					
+					// Encode '[' and ']' if emitted by any component route (i.e. com_tags 'tagged elements list' menu item does)
+					$item->flink = preg_replace(array ('/\[/u', '/\]/u'), array('%5B', '%5D'), $item->flink);
 
 					// We prevent the double encoding because for some reason the $item is shared for menu modules and we get double encoding
 					// when the cause of that is found the argument should be removed
